@@ -5,7 +5,7 @@ include:
 
 mod-php7.0:
   pkg.installed:
-    - name: {{ apache.mod_php7.0 }}
+    - name: {{ apache.mod_php70 }}
     - order: 180
     - require:
       - pkg: apache
