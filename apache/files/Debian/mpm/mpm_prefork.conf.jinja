@@ -5,6 +5,7 @@
 
 # prefork MPM
 # StartServers: number of server processes to start
+# ServerLimit: Serverlimit, although it shouldn't be set, apache complains if MaxRequestWorkers is huge
 # MinSpareServers: minimum number of server processes which are kept spare
 # ServerLimit: maximum number of server processes
 # MaxSpareServers: maximum number of server processes which are kept spare
@@ -13,6 +14,7 @@
 
 <IfModule mpm_prefork_module>
 	StartServers {{ mpm_param['start_servers'] | d('5') }}
+	ServerLimit {{ mpm_param['server_limit'] | d('256') }}
 	MaxRequestWorkers {{ mpm_param['max_request_workers'] | d('150') }}
 {%- if mpm_param['max_request_workers'] | d('150') >= 256 %}
 	ServerLimit {{ mpm_param['max_request_workers'] | d('150') }}
