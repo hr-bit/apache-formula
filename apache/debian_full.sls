@@ -49,9 +49,9 @@ a2dissite default-ssl{{ apache.confext }}:
     - require:
       - pkg: apache
 
-/etc/apache2/ports.conf:
-  file.absent:
-    - require:
-      - pkg: apache
+#/etc/apache2/ports.conf:
+#  file.absent:
+#    - require:
+#      - pkg: apache
 
 {% endif %} #END: os = debian
