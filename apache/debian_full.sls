@@ -31,6 +31,14 @@ a2dissite 000-default{{ apache.confext }}:
     - require:
       - pkg: apache
 
+a2dissite default-ssl{{ apache.confext }}:
+  cmd.run:
+    - onlyif: test -f /etc/apache2/sites-enabled/default-ssl{{ apache.confext }}
+    - watch_in:
+      - module: apache-reload
+    - require:
+      - pkg: apache
+
 /etc/apache2/sites-available/{{ apache.default_site }}:
   file.absent:
     - require:
