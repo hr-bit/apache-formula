@@ -32,8 +32,8 @@
   CustomLog /var/log/apache2/{{ vals.ServerName }}-access.log vhost_combined
 
   SSLEngine on
-  SSLCertificateFile /etc/apache2/ssl/cert-{{ id }}.pem
-  SSLCertificateKeyFile /etc/apache2/ssl/key-{{ id }}.pem
+  SSLCertificateFile /etc/ssl/certs/cert-{{ id }}.pem
+  SSLCertificateKeyFile /etc/ssl/private/key-{{ id }}.pem
 
   <Directory {{ vals.DocumentRoot }}>
     AllowOverride Options Indexes FileInfo AuthConfig Limit
