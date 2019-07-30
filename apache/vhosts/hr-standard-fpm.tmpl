@@ -43,6 +43,6 @@
   </Directory>
 
   <FilesMatch \.php$>
-    SetHandler "proxy:unix:/run/php/{{ DocumentRootUser }}.sock|fcgi://localhost-{{ vals.ServerName }}/"
+    SetHandler "proxy:unix:/run/php/{{ vals.DocumentRootUser }}.sock|fcgi://localhost-{{ vals.ServerName }}/"
   </FilesMatch>
 </VirtualHost>
