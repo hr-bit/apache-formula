@@ -11,6 +11,7 @@
     'ServerAdmin': site.get('ServerAdmin', 'webmaster@{0}'.format(sitename)),
 
     'DocumentRoot': site.get('DocumentRoot', '{0}/{1}'.format(map.wwwdir, sitename))
+    'DocumentRootUser': site.get('DocumentRootUser','www-data')
 } -%}
 
 <VirtualHost *:80>
@@ -42,6 +43,6 @@
   </Directory>
 
   <FilesMatch \.php$>
-    SetHandler "proxy:unix:/run/php/{{ site.get('DocumentRootUser', 'www-data') }}.sock|fcgi://localhost-{{ vals.ServerName }}/"
+    SetHandler "proxy:unix:/run/php/{{ DocumentRootUser }}.sock|fcgi://localhost-{{ vals.ServerName }}/"
   </FilesMatch>
 </VirtualHost>
