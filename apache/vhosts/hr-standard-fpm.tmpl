@@ -42,6 +42,6 @@
   </Directory>
 
   <FilesMatch \.php$>
-    SetHandler "proxy:unix:/run/php/{{ site.get('DocumentRootUser', apache.get('document_root_user'))|json }}.sock|fcgi://localhost-{{ vals.ServerName }}/"
+    SetHandler "proxy:unix:/run/php/{{ site.get('DocumentRootUser', 'www-data') }}.sock|fcgi://localhost-{{ vals.ServerName }}/"
   </FilesMatch>
 </VirtualHost>
