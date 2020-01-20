@@ -12,8 +12,8 @@
     'ServerAdmin': site.get('ServerAdmin', 'webmaster@{0}'.format(sitename)),
 
     'DocumentRoot': site.get('DocumentRoot', '{0}/{1}'.format(map.wwwdir, sitename)),
-    'DocumentRootUser': site.get('DocumentRootUser','www-data')
-    'DefaultSocketName': 'php' + phpng_version + '-fpm'
+    'DocumentRootUser': site.get('DocumentRootUser','www-data'),
+    'DefaultSocketName': 'php' + phpng_version + '-fpm',
     'SocketName': site.get('DocumentRootUser', DefaultSocketName)
 } -%}
 
