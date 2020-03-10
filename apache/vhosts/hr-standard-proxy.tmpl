@@ -34,6 +34,6 @@
   SSLCertificateFile /etc/ssl/certs/cert-{{ id }}.pem
   SSLCertificateKeyFile /etc/ssl/private/key-{{ id }}.pem
 
-  ProxyPass {{ ProxyRoot }} {{ ProxyURL }}
-  ProxyPassReverse {{ ProxyRoot }} {{ ProxyURL }}
+  ProxyPass {{ vals.ProxyRoot }} {{ vals.ProxyURL }}
+  ProxyPassReverse {{ vals.ProxyRoot }} {{ vals.ProxyURL }}
 </VirtualHost>
