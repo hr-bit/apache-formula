@@ -1,0 +1,39 @@
+#
+# This file is managed by Salt! Do not edit by hand!
+#
+{# Define default values here so the template below can just focus on layout #}
+{%- set sitename = site.get('ServerName', id) -%}
+
+{%- set vals = {
+    'ServerName': sitename,
+    'ServerAlias': site.get('ServerAlias', ''),
+
+    'ServerAdmin': site.get('ServerAdmin', 'webmaster@{0}'.format(sitename)),
+
+    'ProxyPath': site.get('ProxyPath', '/'),
+    'ProxyURL': site.get('ProxyURL' , 'ajp://localhost:8009/')
+} -%}
+
+<VirtualHost *:80>
+  ServerName {{ vals.ServerName }}
+  {% if vals.ServerAlias != '' %}ServerAlias {{ vals.ServerAlias }}{% endif %}
+  {% if site.get('ServerAdmin') != False %}ServerAdmin {{ vals.ServerAdmin }}{% endif %}
+
+  Redirect / https://{{ vals.ServerName }}/
+</VirtualHost>
+
+<VirtualHost *:443>
+  ServerName {{ vals.ServerName }}
+  {% if vals.ServerAlias != '' %}ServerAlias {{ vals.ServerAlias }}{% endif %}
+  {% if site.get('ServerAdmin') != False %}ServerAdmin {{ vals.ServerAdmin }}{% endif %}
+
+  ErrorLog /var/log/apache2/{{ vals.ServerName }}-error.log
+  CustomLog /var/log/apache2/{{ vals.ServerName }}-access.log vhost_combined
+
+  SSLEngine on
+  SSLCertificateFile /etc/ssl/certs/cert-{{ id }}.pem
+  SSLCertificateKeyFile /etc/ssl/private/key-{{ id }}.pem
+
+  ProxyPass {{ ProxyPath }} {{ ProxyURL }}
+  ProxyPassReverse {{ ProxyPath }} {{ ProxyURL }}
+</VirtualHost>
