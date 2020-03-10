@@ -10,7 +10,7 @@
 
     'ServerAdmin': site.get('ServerAdmin', 'webmaster@{0}'.format(sitename)),
 
-    'ProxyPath': site.get('ProxyPath', '/'),
+    'ProxyRoot': site.get('ProxyRoot', '/'),
     'ProxyURL': site.get('ProxyURL' , 'ajp://localhost:8009/')
 } -%}
 
@@ -34,6 +34,6 @@
   SSLCertificateFile /etc/ssl/certs/cert-{{ id }}.pem
   SSLCertificateKeyFile /etc/ssl/private/key-{{ id }}.pem
 
-  ProxyPass {{ ProxyPath }} {{ ProxyURL }}
-  ProxyPassReverse {{ ProxyPath }} {{ ProxyURL }}
+  ProxyPass {{ ProxyRoot }} {{ ProxyURL }}
+  ProxyPassReverse {{ ProxyRoot }} {{ ProxyURL }}
 </VirtualHost>
