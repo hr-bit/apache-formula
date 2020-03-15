@@ -18,10 +18,6 @@ enable-mod_md:
     'ManagedDomain': mdsite.get('ManagedDomain', False)
 } %}
 
-meh:
-  cmd.run:
-    - name: echo {{ vals.ManagedDomain }} 
-    
 {%   if vals.ManagedDomain == True %}
 {%     if vals.ServerName != '' %}
 {%       do MDomains.append(vals.ServerName) %}
@@ -32,11 +28,7 @@ meh:
 {%   endif %}
 {% endfor %}
 
-boop:
-  cmd.run:
-    - name: echo {{ MDomains|join(" ") }} 
-
-#{ if MDomains != '' %}
+{% if MDomains %}
 mod_md-config:
   file.managed:
     - name: /etc/apache2/conf-available/md.conf
@@ -46,7 +38,7 @@ mod_md-config:
     - watch_in:
       - module: apache-restart
     - contents: |
-        MDomain {{ MDomains }}
+        MDomain {{ MDomains|join(" ") }}
         MDCertificateAgreement accepted
 
 mod_md-config-enable:
@@ -56,6 +48,5 @@ mod_md-config-enable:
       - file: mod_md-config
     - watch_in:
       - module: apache-restart
-#{ endif %}
-
+{% endif %}
 {% endif %}
