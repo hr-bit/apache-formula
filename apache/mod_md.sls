@@ -24,10 +24,10 @@ meh:
     
 {%   if vals.ManagedDomain == True %}
 {%     if vals.ServerName != '' %}
-{%       MDomains = MDomains + " " + vals.ServerName %}
+{%       set MDomains = MDomains ~ ' ' ~ vals.ServerName %}
 {%     endif %}
 {%     if vals.ServerAlias != '' %}
-{%       MDomains = MDomains + " " + vals.ServerAlias %}
+{%       set MDomains = MDomains ~ ' ' ~ vals.ServerAlias %}
 {%     endif %}
 boop:
   cmd.run:
