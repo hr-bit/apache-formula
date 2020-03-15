@@ -29,11 +29,12 @@ meh:
 {%     if vals.ServerAlias != '' %}
 {%       set MDomains = MDomains ~ ' ' ~ vals.ServerAlias %}
 {%     endif %}
+{%   endif %}
+{% endfor %}
+
 boop:
   cmd.run:
     - name: echo {{ MDomains }} 
-{%   endif %}
-{% endfor %}
 
 #{ if MDomains != '' %}
 mod_md-config:
