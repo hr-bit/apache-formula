@@ -12,15 +12,16 @@ enable-mod_md:
 
 {% set MDomains = '' %}
 {% for mdid,mdsite in salt['pillar.get']('apache:sites', {}).items() %}
-meh:
-  cmd.run:
-    - name: echo {{ mdid }}
-    
 {%   set vals = {
     'ServerName': mdsite.get('ServerName', ''),
     'ServerAlias': mdsite.get('ServerAlias', ''),
     'ManagedDomain': mdsite.get('ManagedDomain', True)
 } %}
+
+meh:
+  cmd.run:
+    - name: echo {{ vals.ServerName }} 
+    
 {%   if vals.ManagedDomain == True %}
 {%     if vals.ServerName != '' %}
 {%       set MDomains = MDomains + " " + vals.ServerName %}
