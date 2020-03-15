@@ -20,7 +20,7 @@ enable-mod_md:
 
 meh:
   cmd.run:
-    - name: echo {{ vals.ServerName }} 
+    - name: echo {{ vals.ManagedDomain }} 
     
 {%   if vals.ManagedDomain == True %}
 {%     if vals.ServerName != '' %}
