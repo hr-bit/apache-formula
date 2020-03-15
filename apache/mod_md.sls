@@ -24,10 +24,10 @@ meh:
     
 {%   if vals.ManagedDomain == True %}
 {%     if vals.ServerName != '' %}
-{%       set MDomains.append(vals.ServerName) %}
+{%       do MDomains.append(vals.ServerName) %}
 {%     endif %}
 {%     if vals.ServerAlias != '' %}
-{%       set MDomains.append(vals.ServerAlias) %}
+{%       do MDomains.append(vals.ServerAlias) %}
 {%     endif %}
 {%   endif %}
 {% endfor %}
