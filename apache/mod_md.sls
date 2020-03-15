@@ -24,6 +24,7 @@ enable-mod_md:
 {%     if vals.ServerAlias != '' %}
 {%       set MDomains = MDomains + " " + vals.ServerAlias %}
 {%     endif %}
+{%   endif %}
 {% endfor %}
 
 {% if MDomains != '' %}
