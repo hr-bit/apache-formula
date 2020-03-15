@@ -5,7 +5,7 @@ include:
 
 {% if grains['os_family']=="Debian" %}
 enable-mod_md:
-  apache_module.enable:
+  apache_module.enabled:
     - name: md
     - watch_in:
       - module: apache-restart
