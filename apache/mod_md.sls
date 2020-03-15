@@ -15,7 +15,7 @@ enable-mod_md:
 {%   set vals = {
     'ServerName': mdsite.get('ServerName', ''),
     'ServerAlias': mdsite.get('ServerAlias', ''),
-    'ManagedDomain': mdsite.get('ManagedDomain', True)
+    'ManagedDomain': mdsite.get('ManagedDomain', False)
 } %}
 
 meh:
@@ -24,11 +24,14 @@ meh:
     
 {%   if vals.ManagedDomain == True %}
 {%     if vals.ServerName != '' %}
-{%       set MDomains = MDomains + " " + vals.ServerName %}
+{%       MDomains = MDomains + " " + vals.ServerName %}
 {%     endif %}
 {%     if vals.ServerAlias != '' %}
-{%       set MDomains = MDomains + " " + vals.ServerAlias %}
+{%       MDomains = MDomains + " " + vals.ServerAlias %}
 {%     endif %}
+boop:
+  cmd.run:
+    - name: echo {{ MDomains }} 
 {%   endif %}
 {% endfor %}
 
