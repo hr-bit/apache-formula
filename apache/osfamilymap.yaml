@@ -20,6 +20,7 @@ Debian:
   mod_fastcgi: libapache2-mod-fastcgi
   mod_geoip: libapache2-mod-geoip
   mod_geoip_database: geoip-database
+  mod_md: libapache2-mod-md
 
   vhostdir: /etc/apache2/sites-available
   confdir: /etc/apache2/conf-available
