@@ -27,7 +27,7 @@ enable-mod_md:
 {%   endif %}
 {% endfor %}
 
-{% if MDomains != '' %}
+#{ if MDomains != '' %}
 mod_md-config:
   file.managed:
     - name: /etc/apache2/conf-available/md.conf
@@ -47,6 +47,6 @@ mod_md-config-enable:
       - file: mod_md-config
     - watch_in:
       - module: apache-restart
-{% endif %}
+#{ endif %}
 
 {% endif %}
