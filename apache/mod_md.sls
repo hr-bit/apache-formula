@@ -11,7 +11,7 @@ enable-mod_md:
       - module: apache-restart
 
 {% set MDomains = [] %}
-{% for mdid,mdsite in salt['pillar.get']('apache:sites', {}).items() scoped %}
+{% for mdid,mdsite in salt['pillar.get']('apache:sites', {}).items() %}
 {%   set vals = {
     'ServerName': mdsite.get('ServerName', ''),
     'ServerAlias': mdsite.get('ServerAlias', ''),
@@ -34,7 +34,7 @@ meh:
 
 boop:
   cmd.run:
-    - name: echo {{ MDomains }} 
+    - name: echo {{ MDomains|join(" ") }} 
 
 #{ if MDomains != '' %}
 mod_md-config:
