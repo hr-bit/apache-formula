@@ -11,11 +11,11 @@ enable-mod_md:
       - module: apache-restart
 
 {% set MDomains = '' %}
-{% for id,site in salt['pillar.get']('apache:sites', {}).items() %}
+{% for mdid,mdsite in salt['pillar.get']('apache:sites', {}).items() %}
 {%   set vals = {
-    'ServerName': site.get('ServerName', ''),
-    'ServerAlias': site.get('ServerAlias', ''),
-    'ManagedDomain': site.get('ManagedDomain', False)
+    'ServerName': mdsite.get('ServerName', ''),
+    'ServerAlias': mdsite.get('ServerAlias', ''),
+    'ManagedDomain': mdsite.get('ManagedDomain', True)
 } %}
 {%   if vals.ManagedDomain == True %}
 {%     if vals.ServerName != '' %}
@@ -41,7 +41,7 @@ mod_md-config:
         MDCertificateAgreement accepted
 
 mod_md-config-enable:
-  apache_conf.enable:
+  apache_conf.enabled:
     - name: md
     - require:
       - file: mod_md-config
