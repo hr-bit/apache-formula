@@ -10,6 +10,8 @@
 
     'ServerAdmin': site.get('ServerAdmin', 'webmaster@{0}'.format(sitename)),
 
+    'ManagedDomain': site.get('ManagedDomain', False),
+
     'ProxyRoot': site.get('ProxyRoot', '/'),
     'ProxyURL': site.get('ProxyURL' , 'ajp://localhost:8009/')
 } -%}
@@ -31,8 +33,10 @@
   CustomLog /var/log/apache2/{{ vals.ServerName }}-access.log vhost_combined
 
   SSLEngine on
+  {% if vals.ManagedDomain == False %}
   SSLCertificateFile /etc/ssl/certs/cert-{{ id }}.pem
   SSLCertificateKeyFile /etc/ssl/private/key-{{ id }}.pem
+  {% endif %}
 
   ProxyPass {{ vals.ProxyRoot }} {{ vals.ProxyURL }}
   ProxyPassReverse {{ vals.ProxyRoot }} {{ vals.ProxyURL }}

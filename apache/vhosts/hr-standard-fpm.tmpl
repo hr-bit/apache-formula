@@ -11,6 +11,8 @@
 
     'ServerAdmin': site.get('ServerAdmin', 'webmaster@{0}'.format(sitename)),
 
+    'ManagedDomain': site.get('ManagedDomain', False),
+
     'DocumentRoot': site.get('DocumentRoot', '{0}/{1}'.format(map.wwwdir, sitename)),
     'DocumentRootUser': site.get('DocumentRootUser','www-data'),
     'SocketName': site.get('DocumentRootUser', 'php' + phpng_version + '-fpm')
@@ -35,8 +37,10 @@
   CustomLog /var/log/apache2/{{ vals.ServerName }}-access.log vhost_combined
 
   SSLEngine on
+  {% if vals.ManagedDomain == False %}
   SSLCertificateFile /etc/ssl/certs/cert-{{ id }}.pem
   SSLCertificateKeyFile /etc/ssl/private/key-{{ id }}.pem
+  {% endif %}
 
   <Directory {{ vals.DocumentRoot }}>
     AllowOverride Options Indexes FileInfo AuthConfig Limit
