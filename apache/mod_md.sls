@@ -10,7 +10,7 @@ enable-mod_md:
     - watch_in:
       - module: apache-restart
 
-{% set MDomains = '' %}
+{% set MDomains = [] %}
 {% for mdid,mdsite in salt['pillar.get']('apache:sites', {}).items() scoped %}
 {%   set vals = {
     'ServerName': mdsite.get('ServerName', ''),
@@ -24,10 +24,10 @@ meh:
     
 {%   if vals.ManagedDomain == True %}
 {%     if vals.ServerName != '' %}
-{%       set MDomains = MDomains ~ ' ' ~ vals.ServerName %}
+{%       set MDomains.append(vals.ServerName) %}
 {%     endif %}
 {%     if vals.ServerAlias != '' %}
-{%       set MDomains = MDomains ~ ' ' ~ vals.ServerAlias %}
+{%       set MDomains.append(vals.ServerAlias) %}
 {%     endif %}
 {%   endif %}
 {% endfor %}
