@@ -15,8 +15,8 @@
 
     'DocumentRoot': site.get('DocumentRoot', '{0}/{1}'.format(map.wwwdir, sitename)),
     'DocumentRootUser': site.get('DocumentRootUser','www-data'),
-    'SocketName': site.get('DocumentRootUser', 'php' + phpng_version + '-fpm')
-    'CustomConfig': site.get('CustomConfig', ''),
+    'SocketName': site.get('DocumentRootUser', 'php' + phpng_version + '-fpm'),
+    'CustomConfig': site.get('CustomConfig', '')
 } -%}
 
 <VirtualHost *:80>
