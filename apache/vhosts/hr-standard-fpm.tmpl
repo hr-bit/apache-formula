@@ -15,6 +15,7 @@
 
     'DocumentRoot': site.get('DocumentRoot', '{0}/{1}'.format(map.wwwdir, sitename)),
     'DocumentRootUser': site.get('DocumentRootUser','www-data'),
+    'AllowOverride': site.get('AllowOverride','Options Indexes FileInfo AuthConfig Limit'),
     'SocketName': site.get('DocumentRootUser', 'php' + phpng_version + '-fpm'),
     'CustomConfig': site.get('CustomConfig', '')
 } -%}
@@ -44,7 +45,7 @@
   {% endif %}
 
   <Directory {{ vals.DocumentRoot }}>
-    AllowOverride Options Indexes FileInfo AuthConfig Limit
+    AllowOverride {{ vals.AllowOverride }}
     Options Indexes FollowSymLinks
     Require all granted
   </Directory>
