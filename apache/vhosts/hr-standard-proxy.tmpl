@@ -30,7 +30,7 @@
   {% if site.get('ServerAdmin') != False %}ServerAdmin {{ vals.ServerAdmin }}{% endif %}
 
   ErrorLog /var/log/apache2/{{ vals.ServerName }}-error.log
-  CustomLog /var/log/apache2/{{ vals.ServerName }}-access.log vhost_combined
+  CustomLog /var/log/apache2/{{ vals.ServerName }}-access.log hr_vhost_combined
 
   SSLEngine on
   {% if vals.ManagedDomain == False %}
