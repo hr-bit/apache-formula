@@ -5,7 +5,7 @@ include:
 
 mod-php8.2:
   pkg.installed:
-    - name: {{ apache.mod_php74 }}
+    - name: {{ apache.mod_php82 }}
     - order: 180
     - require:
       - pkg: apache
