@@ -21,7 +21,7 @@ mod_md-config:
     - contents: |
 {%- for key,val in salt['pillar.get']('apache:md', {}).items() %}
         {{ key }} {{ val }}
-{%- endfor -%}
+{%- endfor %}
 
 mod_md-config-enable:
   apache_conf.enabled:
