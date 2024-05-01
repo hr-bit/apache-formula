@@ -10,25 +10,6 @@ enable-mod_md:
     - watch_in:
       - module: apache-restart
 
-{% set MDomains = [] %}
-{% for mdid,mdsite in salt['pillar.get']('apache:sites', {}).items() %}
-{%   set vals = {
-    'ServerName': mdsite.get('ServerName', ''),
-    'ServerAlias': mdsite.get('ServerAlias', ''),
-    'ManagedDomain': mdsite.get('ManagedDomain', False)
-} %}
-
-{%   if vals.ManagedDomain == True %}
-{%     if vals.ServerName != '' %}
-{%       do MDomains.append(vals.ServerName) %}
-{%     endif %}
-{%     if vals.ServerAlias != '' %}
-{%       do MDomains.append(vals.ServerAlias) %}
-{%     endif %}
-{%   endif %}
-{% endfor %}
-
-{% if MDomains %}
 mod_md-config:
   file.managed:
     - name: /etc/apache2/conf-available/md.conf
@@ -38,8 +19,9 @@ mod_md-config:
     - watch_in:
       - module: apache-restart
     - contents: |
-        MDomain {{ MDomains|join(" ") }}
-        MDCertificateAgreement accepted
+{% for key,val in salt['pillar.get']('apache:md', {}).items() 
+        {{ key }} {{ val }}
+{% endfor %}
 
 mod_md-config-enable:
   apache_conf.enabled:
@@ -48,5 +30,4 @@ mod_md-config-enable:
       - file: mod_md-config
     - watch_in:
       - module: apache-restart
-{% endif %}
 {% endif %}
