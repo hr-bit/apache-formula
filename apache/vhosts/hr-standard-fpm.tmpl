@@ -28,6 +28,9 @@
   Redirect / https://{{ vals.ServerName }}/
 </VirtualHost>
 
+{%- if vals.ManagedDomain == True %}
+MDomain {{ vals.ServerName }}
+{%- endif %}
 <VirtualHost *:443>
   ServerName {{ vals.ServerName }}
   {% if vals.ServerAlias != '' %}ServerAlias {{ vals.ServerAlias }}{% endif %}
@@ -39,10 +42,10 @@
   CustomLog /var/log/apache2/{{ vals.ServerName }}-access.log hr_vhost_combined
 
   SSLEngine on
-  {% if vals.ManagedDomain == False %}
+  {%- if vals.ManagedDomain == False %}
   SSLCertificateFile /etc/ssl/certs/cert-{{ id }}.pem
   SSLCertificateKeyFile /etc/ssl/private/key-{{ id }}.pem
-  {% endif %}
+  {%- endif %}
 
   <Directory {{ vals.DocumentRoot }}>
     AllowOverride {{ vals.AllowOverride }}
