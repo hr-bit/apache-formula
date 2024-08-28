@@ -16,6 +16,7 @@
     'DocumentRoot': site.get('DocumentRoot', '{0}/{1}'.format(map.wwwdir, sitename)),
     'DocumentRootUser': site.get('DocumentRootUser','www-data'),
     'AllowOverride': site.get('AllowOverride','Options Indexes FileInfo AuthConfig Limit'),
+    'SocketPath': site.get('SocketPath','/run/php'),
     'SocketName': site.get('DocumentRootUser', 'php' + phpng_version + '-fpm'),
     'CustomConfig': site.get('CustomConfig', '')
 } -%}
@@ -54,7 +55,7 @@ MDomain {{ vals.ServerName }}
   </Directory>
 
   <FilesMatch \.php$>
-    SetHandler "proxy:unix:/run/php/{{ vals.SocketName }}.sock|fcgi://localhost-{{ vals.ServerName }}/"
+    SetHandler "proxy:unix:{{ vals.SocketPath}}/{{ vals.SocketName }}.sock|fcgi://localhost-{{ vals.ServerName }}/"
   </FilesMatch>
 
   {% if vals.CustomConfig != '' %}{{ vals.CustomConfig }}{% endif %}
