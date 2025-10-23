@@ -27,6 +27,10 @@
   Redirect / https://{{ vals.ServerName }}/
 </VirtualHost>
 
+{%- if vals.ManagedDomain == True %}
+MDomain {{ vals.ServerName }}
+{%- endif %}
+
 <VirtualHost *:443>
   ServerName {{ vals.ServerName }}
   {% if vals.ServerAlias != '' %}ServerAlias {{ vals.ServerAlias }}{% endif %}
