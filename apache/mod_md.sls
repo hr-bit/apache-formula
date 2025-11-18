@@ -30,4 +30,15 @@ mod_md-config-enable:
       - file: mod_md-config
     - watch_in:
       - module: apache-restart
+
+mod_md-permissions:
+  file.directory:
+    - name: /etc/apache2/md
+    - user: root
+    - group: root
+    - dir_mode: 600
+    - file_mode: 700
+    - recurse:
+      - ignore_dirs
+      - ignore_files
 {% endif %}
