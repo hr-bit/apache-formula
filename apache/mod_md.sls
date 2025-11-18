@@ -38,6 +38,4 @@ mod_md-permissions:
     - group: root
     - dir_mode: 600
     - file_mode: 700
-    - recurse:
-      - ignore_dirs
 {% endif %}
