@@ -40,5 +40,4 @@ mod_md-permissions:
     - file_mode: 700
     - recurse:
       - ignore_dirs
-      - ignore_files
 {% endif %}
