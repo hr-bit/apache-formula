@@ -31,11 +31,11 @@ mod_md-config-enable:
     - watch_in:
       - module: apache-restart
 
-mod_md-permissions:
-  file.directory:
-    - name: /etc/apache2/md
-    - user: root
-    - group: root
-    - dir_mode: 600
-    - file_mode: 700
+#mod_md-permissions:
+#  file.directory:
+#    - name: /etc/apache2/md
+#    - user: root
+#    - group: root
+#    - dir_mode: 600
+#    - file_mode: 700
 {% endif %}
