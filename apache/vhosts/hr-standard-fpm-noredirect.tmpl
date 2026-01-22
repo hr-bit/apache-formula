@@ -34,7 +34,7 @@
 
   <Directory {{ vals.DocumentRoot }}>
     AllowOverride {{ vals.AllowOverride }}
-    Options Indexes FollowSymLinks
+    Options -Indexes FollowSymLinks
     Require all granted
   </Directory>
 
@@ -65,7 +65,7 @@ MDomain {{ vals.ServerName }}
 
   <Directory {{ vals.DocumentRoot }}>
     AllowOverride {{ vals.AllowOverride }}
-    Options Indexes FollowSymLinks
+    Options -Indexes FollowSymLinks
     Require all granted
   </Directory>
 
