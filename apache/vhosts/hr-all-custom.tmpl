@@ -49,7 +49,7 @@ MDomain {{ vals.ServerName }}
 
   <Directory {{ vals.DocumentRoot }}>
     AllowOverride Options Indexes FileInfo AuthConfig Limit
-    Options Indexes FollowSymLinks
+    Options -Indexes FollowSymLinks
     Require all granted
   </Directory>
 
