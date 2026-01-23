@@ -16,6 +16,7 @@
     'DocumentRoot': site.get('DocumentRoot', '{0}/{1}'.format(map.wwwdir, sitename)),
     'DocumentRootUser': site.get('DocumentRootUser','www-data'),
     'AllowOverride': site.get('AllowOverride','Options Indexes FileInfo AuthConfig Limit'),
+    'Options': site.get('Options','-Indexes +FollowSymLinks'),
     'SocketPath': site.get('SocketPath','/run/php'),
     'SocketName': site.get('DocumentRootUser', 'php' + phpng_version + '-fpm'),
     'CustomConfig': site.get('CustomConfig', '')
@@ -50,7 +51,7 @@ MDomain {{ vals.ServerName }}
 
   <Directory {{ vals.DocumentRoot }}>
     AllowOverride {{ vals.AllowOverride }}
-    Options -Indexes +FollowSymLinks
+    Options {{ vals.Options }}
     Require all granted
   </Directory>
 
