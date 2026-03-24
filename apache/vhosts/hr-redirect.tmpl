@@ -1,0 +1,44 @@
+#
+# This file is managed by Salt! Do not edit by hand!
+#
+{# Define default values here so the template below can just focus on layout #}
+{%- set sitename = site.get('ServerName', id) -%}
+
+{%- set vals = {
+    'ServerName': sitename,
+    'ServerAlias': site.get('ServerAlias', ''),
+
+    'ServerAdmin': site.get('ServerAdmin', 'webmaster@{0}'.format(sitename)),
+
+    'ManagedDomain': site.get('ManagedDomain', False),
+    'Target': site.get('Target', 'https://hr.nl'),
+    'CustomConfig': site.get('CustomConfig', '')
+} -%}
+
+<VirtualHost *:80>
+  ServerName {{ vals.ServerName }}
+  {% if vals.ServerAlias != '' %}ServerAlias {{ vals.ServerAlias }}{% endif %}
+  {% if site.get('ServerAdmin') != False %}ServerAdmin {{ vals.ServerAdmin }}{% endif %}
+
+  Redirect / https://{{ vals.ServerName }}/
+</VirtualHost>
+
+{%- if vals.ManagedDomain == True %}
+MDomain {{ vals.ServerName }}
+{%- endif %}
+<VirtualHost *:443>
+  ServerName {{ vals.ServerName }}
+  {% if vals.ServerAlias != '' %}ServerAlias {{ vals.ServerAlias }}{% endif %}
+  {% if site.get('ServerAdmin') != False %}ServerAdmin {{ vals.ServerAdmin }}{% endif %}
+
+  ErrorLog /var/log/apache2/{{ vals.ServerName }}-error.log
+  CustomLog /var/log/apache2/{{ vals.ServerName }}-access.log hr_vhost_combined
+
+  SSLEngine on
+  {%- if vals.ManagedDomain == False %}
+  SSLCertificateFile /etc/ssl/certs/cert-{{ id }}.pem
+  SSLCertificateKeyFile /etc/ssl/private/key-{{ id }}.pem
+  {%- endif %}
+  Redirect permanent / {{ vals.Target }}
+  {% if vals.CustomConfig != '' %}{{ vals.CustomConfig }}{% endif %}
+</VirtualHost>
