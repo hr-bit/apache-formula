@@ -15,7 +15,7 @@
 
     'DocumentRoot': site.get('DocumentRoot', '{0}/{1}'.format(map.wwwdir, sitename)),
     'DocumentRootUser': site.get('DocumentRootUser','www-data'),
-    'VirtalDocumentRoot': site.get('VirtualDocumentRoot'),
+    'VirtualDocumentRoot': site.get('VirtualDocumentRoot',''),
 
     'AllowOverride': site.get('AllowOverride','Options Indexes FileInfo AuthConfig Limit'),
     'Options': site.get('Options','-Indexes +FollowSymLinks'),
