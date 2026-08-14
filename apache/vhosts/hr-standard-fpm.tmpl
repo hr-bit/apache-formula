@@ -15,6 +15,8 @@
 
     'DocumentRoot': site.get('DocumentRoot', '{0}/{1}'.format(map.wwwdir, sitename)),
     'DocumentRootUser': site.get('DocumentRootUser','www-data'),
+    'VirtalDocumentRoot': site.get('VirtualDocumentRoot'),
+
     'AllowOverride': site.get('AllowOverride','Options Indexes FileInfo AuthConfig Limit'),
     'Options': site.get('Options','-Indexes +FollowSymLinks'),
     'SocketPath': site.get('SocketPath','/run/php'),
@@ -39,6 +41,7 @@ MDomain {{ vals.ServerName }}
   {% if site.get('ServerAdmin') != False %}ServerAdmin {{ vals.ServerAdmin }}{% endif %}
 
   {% if site.get('DocumentRoot') != False -%}DocumentRoot {{ vals.DocumentRoot }}{% endif %}
+  {% if site.get('VirtualDocumentRoot') != False -%}VirtualDocumentRoot {{ vals.VirtualDocumentRoot }}{% endif %}
 
   ErrorLog /var/log/apache2/{{ vals.ServerName }}-error.log
   CustomLog /var/log/apache2/{{ vals.ServerName }}-access.log hr_vhost_combined
